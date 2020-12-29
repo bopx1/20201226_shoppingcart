@@ -1,4 +1,8 @@
-function Checkout() {
+import { NumberFormat } from '../Utility/NumberHelper'
+
+function Checkout({ subtotal }) {
+  let tax = subtotal * 0.1;
+  let total = subtotal + tax;
   return (
     <section className="container">
       <div className="promotion">
@@ -8,13 +12,13 @@ function Checkout() {
       <div className="summary">
         <ul>
           <li>
-            Subtotal <span>$21.97</span>
+            Subtotal <span>{NumberFormat(subtotal)}</span>
           </li>
           <li>
-            Tax <span>$5.00</span>
+            Tax <span>{NumberFormat(tax.toFixed(2))}</span>
           </li>
           <li className="total">
-            Total <span>$26.97</span>
+            Total <span>{NumberFormat(total.toFixed(2))}</span>
           </li>
         </ul>
       </div>

@@ -1,4 +1,4 @@
-function Header(props) {
+function Header({ totalItems }) {
   return (
     <header className="container">
       <h1>Shopping Cart</h1>
@@ -6,7 +6,7 @@ function Header(props) {
         <li>Home</li>
         <li>Shopping Cart</li>
       </ul>
-      <span className="count">{props.totalItems} items in the bag</span>
+      <span className="count">{totalItems} items in the bag</span>
     </header>
   );
 }
