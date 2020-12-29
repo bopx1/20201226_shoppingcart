@@ -1,12 +1,24 @@
-import { useState } from 'react';
-import { NumberFormat } from '../Utility/NumberHelper'
+import { useState } from "react";
+import { NumberFormat } from "../Utility/NumberHelper";
 
-
-function Item({ id, src, description, name, price, quantity, onRemoveItem, onQuantityChanged }) {
+function Item({
+  id,
+  src,
+  description,
+  name,
+  price,
+  quantity,
+  onRemoveItem,
+  onQuantityChanged,
+}) {
   let [oldQuantity, setQuantity] = useState(quantity);
-  function quantityChanged(id, newQuantity){
-    setQuantity(newQuantity);
-    onQuantityChanged(id, newQuantity);
+  function quantityChanged(id, newQuantity) {
+    if (!newQuantity) {
+      newQuantity = '0';
+    }
+    
+    setQuantity(parseInt(newQuantity).toString());
+    onQuantityChanged(id, parseInt(newQuantity));
   }
 
   return (
@@ -32,7 +44,7 @@ function Item({ id, src, description, name, price, quantity, onRemoveItem, onQua
             className="quantity"
             step={1}
             value={oldQuantity}
-            onChange={(event) => quantityChanged(id, parseInt(event.target.value))}
+            onChange={(event) => quantityChanged(id, event.target.value)}
           />
         </div>
         <div className="remove">
