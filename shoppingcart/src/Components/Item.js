@@ -1,4 +1,4 @@
-import { useState } from "react";
+import classes from './Item.module.css'
 import { NumberFormat } from "../Utility/NumberHelper";
 
 function Item({
@@ -11,16 +11,6 @@ function Item({
   onRemoveItem,
   onQuantityChanged,
 }) {
-  let [oldQuantity, setQuantity] = useState(quantity);
-  function quantityChanged(id, newQuantity) {
-    if (!newQuantity) {
-      newQuantity = '0';
-    }
-    
-    setQuantity(parseInt(newQuantity).toString());
-    onQuantityChanged(id, parseInt(newQuantity));
-  }
-
   return (
     <li className="row">
       <div className="col left">
@@ -33,7 +23,7 @@ function Item({
           <div className="name">
             <a href="/">{name}</a>
           </div>
-          <div className="description">{description}</div>
+          <div className={classes.description}>{description}</div>
           <div className="price">{NumberFormat(price)}</div>
         </div>
       </div>
@@ -43,8 +33,8 @@ function Item({
             type="number"
             className="quantity"
             step={1}
-            value={oldQuantity}
-            onChange={(event) => quantityChanged(id, event.target.value)}
+            value={quantity}
+            onChange={(event) => onQuantityChanged(id, event.target.value)}
           />
         </div>
         <div className="remove">

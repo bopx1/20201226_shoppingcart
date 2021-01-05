@@ -3,28 +3,10 @@ import Header from "./Components/Header";
 import Checkout from "./Components/Checkout";
 import Item from "./Components/Item";
 import { useState } from "react";
-
-let PRODUCTS = [
-  {
-    id: 1,
-    src: "/apple.jpg",
-    name: "Apple",
-    description: "Delicious apple",
-    price: 150000,
-    quantity: 12,
-  },
-  {
-    id: 2,
-    src: "/milk.jpg",
-    name: "Milk",
-    description: "Delicious milk",
-    price: 200000,
-    quantity: 15,
-  },
-];
+import { getProducts } from "./Constants/products";
 
 function App() {
-  let [products, setProducts] = useState(PRODUCTS);
+  let [products, setProducts] = useState(getProducts());
   var items = [];
   let totalItems = 0;
   let subtotal = 0;
@@ -50,16 +32,29 @@ function App() {
     products = products.filter(product => {
       return product.id !== id;
     });
-    console.log(products);
     setProducts(products);
   }
 
   function onQuantityChanged(id, newQuantity){
-    let newProducts = [...products];
-    let productIndex = newProducts.findIndex((product) => {
-      return product.id === id;
+    if(!newQuantity){
+      newQuantity = 0;
+    }
+    // let newProducts = [...products];
+    // let productIndex = newProducts.findIndex((product) => {
+    //   return product.id === id;
+    // });
+    // newProducts[productIndex].quantity = parseFloat(newQuantity);    
+    let newProducts = products.map((product) => {
+      if(product.id === id){
+        let newProduct = {
+          ...product,
+          quantity: parseFloat(newQuantity)
+        }
+        return newProduct;
+      }
+      return product;
     });
-    newProducts[productIndex].quantity = newQuantity;
+    console.log(newProducts);
     setProducts(newProducts);
   }
 
