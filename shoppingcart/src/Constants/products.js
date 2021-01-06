@@ -4,7 +4,7 @@ export const getProducts = () => [
     src: "/apple.jpg",
     name: "Apple",
     description: "Delicious apple",
-    price: 150004,
+    price: 150000,
     quantity: 12,
   },
   {
